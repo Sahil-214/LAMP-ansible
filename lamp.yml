@@ -1,0 +1,39 @@
+---
+- name: Install LAMP Stack on node1
+  hosts: webservers
+  become: yes
+
+  tasks:
+    - name: Update apt packages
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Install Apache
+      apt:
+        name: apache2
+        state: present
+
+    - name: Install MySQL server
+      apt:
+        name: mysql-server
+        state: present
+
+    - name: Install PHP and required modules
+      apt:
+        name:
+          - php
+          - php-mysql
+          - libapache2-mod-php
+        state: present
+
+    - name: Restart Apache
+      service:
+        name: apache2
+        state: restarted
+
+    - name: Enable Apache on boot
+      service:
+        name: apache2
+        enabled: yes
+

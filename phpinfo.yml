@@ -1,0 +1,10 @@
+---
+- name: Create PHP Info Page
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Add PHP info file
+      copy:
+        dest: /var/www/html/info.php
+        content: "<?php phpinfo(); ?>"
+
